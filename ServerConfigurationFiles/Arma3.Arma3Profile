@@ -1,0 +1,70 @@
+version=1;
+blood=1;
+volumeCD=5;
+volumeFX=5;
+volumeSpeech=5;
+singleVoice=0;
+gamma=1;
+brightness=1;
+activeKeys[]=
+{
+	"BIS_CO-cox_patrol-ops-3-01-nato.altis_done",
+	"BIS_Bunker_To_Bunker_V1.Altis_done",
+	"BIS_CO-cox_patrol-ops-3-0-1-nato.Altis_done",
+	"BIS_WarehouseCallV3.Altis_done",
+	"BIS_30mm_HostageRescueV2.Kunduz_done",
+	"BIS_OreoSundaeV1.Altis_done",
+	"BIS_CO-cox_patrol-ops-3-0-2-nato.Altis_done",
+	"BIS_30mm_HostageRescueV3.Kunduz_done",
+	"BIS_BunkerToBunker2.Altis_done",
+	"BIS_Antistasi Altis V1.2.0.Altis_done",
+	"BIS_cox_patrol-ops-3-0-7-nato.Altis_done"
+};
+difficulty="Custom";
+class DifficultyPresets
+{
+	defaultPreset="Custom";
+	myArmorCoef=1.5;
+	groupArmorCoef=1.5;
+	fadeDistanceStart=40;
+	fadeDistanceSpan=10;
+	recoilCoef=1;
+	visionAidCoef=0.80000001;
+	divingLimitMultiplier=1;
+	animSpeedCoef=0;
+	cancelThreshold=0;
+	showCadetHints=0;
+	showCadetWP=0;
+	class CustomDifficulty
+	{
+		class Options
+		{
+			groupIndicators=1;
+			friendlyTags=2;
+			enemyTags=0;
+			detectedMines=1;
+			commands=0;
+			waypoints=1;
+			weaponInfo=1;
+			stanceIndicator=1;
+			reducedDamage=1;
+			staminaBar=1;
+			weaponCrosshair=0;
+			visionAid=1;
+			thirdPersonView=1;
+			cameraShake=1;
+			scoreTable=0;
+			deathMessages=1;
+			vonID=1;
+			mapContent=0;
+			autoReport=0;
+			multipleSaves=0;
+		};
+		aiLevelPreset=3;
+	};
+	class CustomAILevel
+	{
+		skillAI=0.75;
+		precisionAI=0.15000001;
+	};
+};
