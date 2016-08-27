@@ -4,7 +4,7 @@ if (_unit getVariable "inconsciente") exitWith {};
 if (damage _unit < 0.9) exitWith {};
 if (!local _unit) exitWith {};
 _unit setVariable ["inconsciente",true,true];
-_bleedOut = time + 300;//300
+_bleedOut = time + 500;//300
 _isPlayer = false;
 if (isPlayer _unit) then {_isPlayer = true};
 _fa = {_x == "FirstAidKit"} count items _unit;

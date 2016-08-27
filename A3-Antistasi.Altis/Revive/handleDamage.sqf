@@ -112,7 +112,7 @@ else
 				};
 			*/
 			};
-		_dam = 0.9;
+		_dam = 0.5;
 		};
 	};
 //stavros sidechat format ["Final Daño_ %1. Parte %2",_dam,_part];

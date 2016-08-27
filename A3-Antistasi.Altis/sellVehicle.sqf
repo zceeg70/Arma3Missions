@@ -1,9 +1,9 @@
 private ["_veh", "_coste"];
 _veh = cursortarget;
 
-if (isNull _veh) exitWith {hint "You are not looking to any vehicle"};
+if (isNull _veh) exitWith {hint "You are not looking at any vehicle"};
 
-if (_veh distance getMarkerPos "respawn_west" > 50) exitWith {hint "Vehicle must be closer than 50 meters to the flag"};
+if (_veh distance getMarkerPos "respawn_west" > 70) exitWith {hint "Vehicle must be closer than 70 meters to the flag"};
 
 if ({isPlayer _x} count crew _veh > 0) exitWith {hint "In order to sell, vehicle must be empty."};
 
@@ -25,42 +25,43 @@ _coste = 0;
 call {
 	if (_tipoVeh in vehNATO) exitWith {hint "You cannot sell NATO vehicles"};
 	if (_tipoVeh in vehFIA) exitWith {_coste = round (([_tipoVeh] call vehiclePrice)/2)};
-	if (_tipoveh == "C_Van_01_fuel_F") exitWith {_coste = 50};
-	if (_tipoVeh in arrayCivVeh) exitWith {_coste = 25};
-	if (_tipoVeh in (vehTrucks + vehPatrol + vehSupply)) exitWith {_coste = 300};
+	if (_tipoveh == "C_Van_01_fuel_F") exitWith {_coste = 1000};
+	if (_tipoVeh in arrayCivVeh) exitWith {_coste = 300};
+	if (_tipoVeh in (vehTrucks + vehPatrol + vehSupply)) exitWith {_coste = 600};
 	if (_tipoVeh in vehAAFAT) then {
 		if (_tipoVeh in vehTank) exitWith {
 			[_veh] call AAFassets;
-			_coste = 5000;
+			_coste = 9000;
 		};
 		if (_tipoVeh in vehIFV) exitWith {
 			[_veh] call AAFassets;
-			_coste = 2000;
+			_coste = 5000;
 		};
 		if (_tipoVeh in vehAPC) exitWith {
 			[_veh] call AAFassets;
-			_coste = 1000;
+			_coste = 3000;
 		};
 	};
 	if (_tipoVeh in planesAAF) then {
 		if (_tipoVeh in heli_unarmed) exitWith {
 			[_veh] call AAFassets;
-			_coste = 1000;
+			_coste = 5000;
 		};
 		if (_tipoVeh in heli_armed) exitWith {
 			[_veh] call AAFassets;
-			_coste = 5000;
+			_coste = 10000;
 		};
 		if (_tipoVeh in planes) exitWith {
 			[_veh] call AAFassets;
-			_coste = 10000;
+			_coste = 30000;
 		};
 	};
 };
 
 if (_coste == 0) exitWith {hint "The vehicle you are looking at is currently not in demand in our marketplace."};
 
-_coste = _coste * (1-damage _veh);
+// removed because its pointless. Just means you have to remember to heal at the box first
+// _coste = _coste * (1-damage _veh);
 
 [0,_coste] remoteExec ["resourcesFIA",2];
 
