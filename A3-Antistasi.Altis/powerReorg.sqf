@@ -22,15 +22,15 @@ if (_power == _marcador) then
 			{
 			if (_ciudad in mrkFIA) then
 				{
-				//hint format ["You achieved to bring power to %1, more people there supports our cause",_ciudad];
+				hint format ["You achieved to bring power to %1, more people there supports our cause",_ciudad];
 				//[-10,10,_pos] remoteExec ["citySupportChange",2];
-				_nul = [5,0] remoteExec ["prestige",2];
+				_nul = [5, 1] remoteExec ["prestige",2];
 				}
 			else
 				{
-				//hint format ["You cutted off power to %1, less people support AAF there",_ciudad];
+				hint format ["You cut off power to %1, less people support AAF there",_ciudad];
 				//[-10,0,_pos] remoteExec ["citySupportChange",2];
-				_nul = [-5,0] remoteExec ["prestige",2];
+				_nul = [4, 0] remoteExec ["prestige",2]; // -5 -5 -5 Issue 
 				_powered = false;
 				};
 			}
@@ -40,7 +40,7 @@ if (_power == _marcador) then
 				{
 				//hint format ["AAF has cut off power to %1, less people there supports our cause",_ciudad];
 				//[0,-10,_pos] remoteExec ["citySupportChange",2];
-				_nul = [5,0] remoteExec ["prestige",2];
+				_nul = [-1, -1] remoteExec ["prestige",2];
 				_powered = false;
 				};
 			};
