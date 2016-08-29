@@ -33,7 +33,7 @@ _posText2        = [0.8,0.5,0.25];
 
 
 _title3            = "Teamspeak 3";
-_shorttext3     = "voip.A3Antistasi.com";
+_shorttext3     = "gd.teamspeak3.org";
 _posText3        = [0.8,0.5,0.25];
 
 

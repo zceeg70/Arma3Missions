@@ -426,7 +426,7 @@ if (_tipoConvoy == "Prisoners") then
 			{
 			_tsk = ["CONVOY",[side_blue,civilian],[format ["A group os POW's is being transported from %1 to %4, and it's about to depart at %2:%3. They are awaiting for execution. Try to intercept it. Kill or capture the truck driver to make them join you and bring them to HQ. Alive if possible.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"AAF Prisoner Convoy",_destino],_posdestino,"FAILED",5,true,true,"run"] call BIS_fnc_setTask;
 			_cuenta = 2 * (count _POWs);
-			[_cuenta,0] remoteExec ["prestige",2];
+			[-2,0] remoteExec ["prestige",2];
 			//[0,- _cuenta, _posdestino] remoteExec ["citySupportChange",2];
 			[-10,stavros] call playerScoreAdd;
 			}
@@ -488,7 +488,7 @@ if (_tipoConvoy == "Money") then
 			_resourcesAAF = _resourcesAAF - 5000;
 			server setVariable ["resourcesAAF",_resourcesAAF,true];
 			[10,-20,_destino] remoteExec ["citySupportChange",2];
-			[-20,0] remoteExec ["prestige",2];
+			[0, 5] remoteExec ["prestige",2];
 			[0,5000] remoteExec ["resourcesFIA",2];
 			[-1200] remoteExec ["timingCA",2];
 			{if (_x distance _vehObj < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
@@ -528,9 +528,12 @@ if (_tipoConvoy == "Supplies") then
 				}
 			else
 				{
+				// This implies that you have abandoned the supplies vehicle
 				_tsk = ["CONVOY",[side_blue,civilian],[format ["A truck with medical supplies destination %4 it's about to depart at %2:%3 from %1. Steal that truck bring it to %4 and let people in there know it is FIA who's giving those supplies.",_nombreorig,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4,_nombredest],"AAF Supply Convoy",_destino],_posdestino,"FAILED",5,true,true,"heal"] call BIS_fnc_setTask;
+				diag_log format ["HTEDIT_supply convoy abandoned -  BLUFOR spawn false..%1",_destino]
 				[5,-10,_destino] remoteExec ["citySupportChange",2];
-				[-5,0] remoteExec ["prestige",2];
+				hint "HT: Supplies vehicle abandoned?"
+				[-1,0] remoteExec ["prestige",2];
 				[-10,stavros] call playerScoreAdd;
 				};
 			}

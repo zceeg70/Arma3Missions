@@ -109,8 +109,8 @@ waitUntil {sleep 1; (dateToNumber date > _fechalimnum) or (!alive _camion) or (_
 if ((_camion distance _posbase < 50) and (dateToNumber date < _fechalimnum)) then
 	{
 	_tsk = ["LOG",[side_blue,civilian],[format ["We know AAF is guarding a big amount of money in the bank of %1. Take this truck and go there before %2:%3, hold the truck close to tha bank's main entrance for 2 minutes and the money will be transferred to the truck. Bring it back to HQ and the money will be ours.",_nombredest,numberToDate [2035,_fechalimnum] select 3,numberToDate [2035,_fechalimnum] select 4],"Bank Robbery",_mrkfin],_posicion,"SUCCEEDED",5,true,true,"Interact"] call BIS_fnc_setTask;
-	[0,5000] remoteExec ["resourcesFIA",2];
-	[-20,0] remoteExec ["prestige",2];
+	[0,10000] remoteExec ["resourcesFIA",2];
+	[-5,0] remoteExec ["prestige",2]; // was -20 for some reason
 	[1800] remoteExec ["timingCA",2];
 	{if (_x distance _camion < 500) then {[10,_x] call playerScoreAdd}} forEach (allPlayers - hcArray);
 	[5,stavros] call playerScoreAdd;
