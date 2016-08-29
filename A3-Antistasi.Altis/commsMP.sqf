@@ -27,7 +27,7 @@ if (_tipo == "income") then
 	[_texto, [safeZoneX + (0.8 * safeZoneW), (0.2 * safeZoneW)], 0.5, 5, 0, 0, 2] spawn bis_fnc_dynamicText;
 	incomeRep = false;
 	};
-
+	
 if (_tipo == "countdown") then
 	{
 	_texto = format ["Time Remaining: %1 secs",_texto];
@@ -38,6 +38,9 @@ if (_tipo == "taxRep") then
 	{
 	incomeRep = true;
 	playSound "3DEN_notificationDefault";
+	_bounty = player getVariable ["bounty", 0];
+	_texto = _texto + format ["<br/>Bounty: +%1 €",_bounty];
+	player setVariable ["bounty", 0, true];
 	//playSound3D ["a3\sounds_f\sfx\beep_target.wss", player];
 	//[_texto,0.8,0.5,5,0,0,2] spawn bis_fnc_dynamicText;
 	[_texto, [safeZoneX + (0.8 * safeZoneW), (0.2 * safeZoneW)], 0.5, 5, 0, 0, 2] spawn bis_fnc_dynamicText;

@@ -8,7 +8,11 @@ if (side _killer == side_blue) then
 	_grupo = group _muerto;
 	if (isPlayer _killer) then
 		{
-		[1,_killer] call playerScoreAdd;
+		_coste = server getVariable (typeOf _muerto);
+		if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _muerto]; _coste = 10};
+		_bountyReward = 10 +  (round _coste / 5 );
+		
+		[_bountyReward, _killer] call playerScoreAdd;
 		if (captive _killer) then
 			{
 			[_killer,false] remoteExec ["setCaptive",_killer];

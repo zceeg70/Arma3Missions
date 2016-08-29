@@ -106,6 +106,7 @@ player addWeaponGlobal "itemgps";
 player setVariable ["owner",player,true];
 player setVariable ["punish",0,true];
 player setVariable ["dinero",100,true];
+player setVariable ["bounty",1,true];
 player setVariable ["BLUFORSpawn",true,true];
 player setVariable ["rango",rank player,true];
 if (player!=stavros) then {player setVariable ["score", 0,true]} else {player setVariable ["score", 25,true]};

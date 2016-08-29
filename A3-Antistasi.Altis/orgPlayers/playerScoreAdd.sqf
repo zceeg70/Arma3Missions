@@ -15,10 +15,13 @@ if (isMultiplayer) exitWith
 	_dineroJ = _jugador getVariable ["dinero",0];
 	if (_puntos > 0) then
 		{
-		_dineroJ = _dineroJ + (_puntos * 10);
+		_dineroJ = _dineroJ + _puntos;
 		_jugador setVariable ["dinero",_dineroJ,true];
-		_texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];
-		[petros,"income",_texto] remoteExec ["commsMP",_jugador];
+		_currentBounty = _jugador getVariable ["bounty",0]; 
+		_nextBounty = _currentBounty + _puntos;
+		_jugador setVariable ["bounty", _nextBounty, true];
+		// _texto = format ["<br/><br/><br/><br/><br/><br/>Money +%1 €",_puntos*10];
+		// [petros,"income",_texto] remoteExec ["commsMP",_jugador];
 		};
 	_puntos = _puntos + _puntosJ;
 	_jugador setVariable ["score",_puntos,true];
