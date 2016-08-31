@@ -1,0 +1,7 @@
+#include "VAS\menu.hpp"
+class CfgFunctions
+{
+#include "VAS\cfgfunctions.hpp"
+};
+respawn="BASE";
+respawnDelay = 10;
