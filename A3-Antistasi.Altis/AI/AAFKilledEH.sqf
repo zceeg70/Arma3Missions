@@ -10,14 +10,18 @@ if (side _killer == side_blue) then
 		{
 		_coste = server getVariable (typeOf _muerto);
 		if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _muerto]; _coste = 10};
-		_bountyReward = 10 +  (round _coste / 5 );
+		_bountyReward = 10 + ( _coste / 10 );
+		_bountyReward = round _bountyReward;
+		if (_bountReward > 40) then {
+			_bountyReward = 40;
+		}
 		
 		[_bountyReward, _killer] call playerScoreAdd;
 		if (captive _killer) then
 			{
 			[_killer,false] remoteExec ["setCaptive",_killer];
 			};
-		}
+		};
 	else
 		{
 		_skill = skill _killer;
@@ -47,7 +51,7 @@ if (side _killer == side_blue) then
 		_coste = server getVariable (typeOf _muerto);
 		if (isNil "_coste") then {diag_log format ["Falta incluir a %1 en las tablas de coste",typeOf _muerto]; _coste = 0};
 		[-_coste] remoteExec ["resourcesAAF",2];
-		_nul = [-0.5,0,getPos _muerto] remoteExec ["citySupportChange",2];
+		_nul = [-0.5,0.05,getPos _muerto] remoteExec ["citySupportChange",2];
 		};
 
 	{

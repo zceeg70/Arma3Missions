@@ -15,7 +15,7 @@ if (isMultiplayer) exitWith
 	_dineroJ = _jugador getVariable ["dinero",0];
 	if (_puntos > 0) then
 		{
-		_dineroJ = _dineroJ + _puntos;
+		_dineroJ = round (_dineroJ + _puntos);
 		_jugador setVariable ["dinero",_dineroJ,true];
 		_currentBounty = _jugador getVariable ["bounty",0]; 
 		_nextBounty = _currentBounty + _puntos;
@@ -29,6 +29,6 @@ if (isMultiplayer) exitWith
 
 if (_puntos > 0) then
 	{
-	[0,(_puntos * 5)] remoteExec ["resourcesFIA",2];
+	[0,(_puntos * 10)] remoteExec ["resourcesFIA",2];
 	};
 
