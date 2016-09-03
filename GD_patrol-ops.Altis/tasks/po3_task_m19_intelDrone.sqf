@@ -85,8 +85,13 @@ private["_location","_position","_locaname","_locRadis","_spawnPos","_class","_c
 
 		_position = _this select 0;
 		_b = _this select 1;
-		_ingress = [_position ,[400,500],random 360,false] call PO3_fnc_getPos;
-
+		_infAttackAngle = random 360;
+		_ingress = [_position ,[400,500],_infAttackAngle,false] call PO3_fnc_getPos;
+		
+		_minAngle = _infAttackAngle - 45;
+		if(_minAngle < 0) then {_minAngle = 360 + _minAngle;};
+		_maxAngle = (_infAttackAngle + 45) mod 360;
+		_infAngles = [_minAngle,_infAttackAngle,_maxAngle];
 		_vehClass = [];
 		if(_b >= 3) then { _vehClass set [count _vehClass,4]; };
 		if(_b >= 4) then { _vehClass set [count _vehClass,5]; };
@@ -96,6 +101,8 @@ private["_location","_position","_locaname","_locRadis","_spawnPos","_class","_c
 			_grp = nil;
 			_grp = [ _ingress, (PO3_side_3 select 0), format["EN_GroupForce_%1",round random 9], 50 ] call PO3_fnc_createGroup;
 			if !(isNil "_grp") then {
+				_nextIngressAngle = random _infAngles;
+				_ingress set[2, _nextIngressAngle];
 				[ _position, _grp ] spawn PO3_fnc_groupAttackPos;
 				PO3_TOTAL_UNITS = PO3_TOTAL_UNITS + (units _grp);
 				sleep 1;
@@ -117,7 +124,7 @@ private["_location","_position","_locaname","_locRadis","_spawnPos","_class","_c
 			};
 		};
 
-		if(random 1 > 0.4) then {
+		if(random 1 > 0.1) then {
 			[_position,(PO3_side_3 select 0),([7] call PO3_fnc_getVehicleTypes) call PO3_fnc_getArrayRandom,format["EN_GroupForce_%1",round random 9]] call PO3_fnc_supportCreateHeloReinforcements;
 		};
 	};
@@ -128,23 +135,29 @@ private["_location","_position","_locaname","_locRadis","_spawnPos","_class","_c
 	_fired3 = false;
 	_fired4 = false;
 
+	_intel1 = (floor random[10, 14, 25])/100;
+	_intel2 = (floor random[35, 44, 56])/100;
+	_intel3 = (floor random[69, 78, 90])/100;
 	While{ _intelpercent < 1 && damage _crashUAV < 0.9 } do {
 		sleep 1;
-
+		if( ((_intelpercent mod 5) == 0) && _intelpercent > 0) then {
+			// [(PO3_side_1 select 0),"HINT",format["Percentage: %1",_intelpercent]] call PO3_fnc_sendHint;
+			[(PO3_side_1 select 0),"SIDE",format["Percentage: %1",_intelpercent]] call PO3_fnc_sendChat;		
+		};
 		_b = (6*(playersNumber(PO3_side_1 select 0)/40)*PO3_TASK__DIF) max 1;
 		_b = round(((playersNumber(PO3_side_1 select 0) max 1)*PO3_param_missionskill max 1) * abs(log(( (playersNumber(PO3_side_1 select 0) max 1)/2)/64)));
 
-		if( _intelpercent > 0.1 && !_fired1 ) then {
+		if( _intelpercent > _intel1 && !_fired1 ) then {
 			[_position,(_b/2)] spawn _spawnAmbush;
 			_fired1 = true;
 		};
 
-		if( _intelpercent > 0.4 && !_fired2 ) then {
+		if( _intelpercent > _intel2 && !_fired2 ) then {
 			[_position,(_b)] spawn _spawnAmbush;
 			_fired2 = true;
 		};
 
-		if( _intelpercent > 0.7 && !_fired4 ) then {
+		if( _intelpercent > _intel3 && !_fired4 ) then {
 			[_position,(_b*2)] spawn _spawnAmbush;
 			_fired4 = true;
 		};
