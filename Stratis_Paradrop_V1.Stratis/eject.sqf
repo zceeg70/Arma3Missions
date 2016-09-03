@@ -19,7 +19,7 @@ if (!isServer && hasInterface) exitWith {};
 private ["_vehicle","_paras","_dir"];
 _vehicle = _this select 0;
 // _vehicle limitSpeed 110;
-_vehicleHeight = getPosATL _vehicle select 2;
+_vehicleHeight = getPosATL _vehicle select 1;
 // _chuteheight = if ( count _this > 1 ) then { _this select 1 } else { 250 }; 
 _paras = assignedCargo _vehicle;
 _dir = direction _vehicle;
@@ -37,7 +37,6 @@ paraLandSafe =
 	waitUntil {animationState _unit == "para_pilot"}; // Wait until parachute deployed
 	
 	_light = "Chemlight_red" createVehicle [0,0,0]; 
-	// _light attachTo [vehicle _unit,[-0.13,-0.09,0.56],"LeftShoulder"];  
 	_light attachTo [vehicle _unit,[0,-0.03,0.07],"LeftFoot"];  
 	_light setVectorDirAndUp [[0,0,1],[0,1,0]]; // magic numbers?
 	// Allow damamge whilst trooper is falling:
@@ -53,7 +52,6 @@ paraLandSafe =
     _unit setvelocity [0,0,0]; 
     sleep 1;// Para Units sometimes get damaged on landing. Wait to prevent this.
     _unit allowDamage true;
-	// Allow trooper to turn off the chemlight. DOESNT WORK
 	// _null  = _player addAction ["<t color='#FF0000'>Turn OFF Light</t>","chemlightOff.sqf",[_light,_unit]];
 };
 
@@ -72,11 +70,17 @@ DeployChute =
 	_chute = createVehicle ["NonSteerable_Parachute_F", position _x, [], ((_dir)- 5 + (random 10)), 'FLY'];
 	//I_Parachute_02_F,O_Parachute_02_F,B_Parachute_02_F // DO NOT USE FOR TROOPS
 	_chute setPos (getPos _x);
-
-	_x assignAsDriver _chute;
-	_x moveIndriver _chute;
+	
+	if (isPlayer _x) then {
+		[_chute, {player moveInDriver _this}] remoteExec ["bis_fnc_call", _x];
+	} else {
+		_x moveInDriver _chute;
+	};
+	// _x assignAsDriver _chute;
+	// _x moveInDriver _chute;
 	_x allowDamage true;
 };
+
 {
 	systemChat "get out called";
     _x disableCollisionWith _vehicle;
@@ -85,7 +89,7 @@ DeployChute =
     _x action ["GETOUT", _vehicle];
     _x setDir ((_dir - 180) + 90);
 	[_x, (position _vehicle select 2),_dir] spawn DeployChute;
-    sleep 1.7;//So units are not too far spread out when they land.
+    sleep 1.2;//So units are not too far spread out when they land.
 } forEach _paras;
 
 
