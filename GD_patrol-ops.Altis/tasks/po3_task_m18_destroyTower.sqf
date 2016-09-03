@@ -1,3 +1,10 @@
+// =========================================================================================================
+//	Change log:
+//
+// Chance helicopters fly in at end of mission - 10/04/2015 Hightower
+// TODO: Add units attacking during mission.
+// ============================================================
+
 private["_location","_position","_locaname"];
 // =========================================================================================================
 //	Define Random Location
@@ -100,8 +107,10 @@ private["_location","_position","_locaname"];
 // =========================================================================================================
 
 	waitUntil { sleep 3; !(alive _targetTower) || damage _targetTower > 0.8 || ((getPosATL _targetTower) select 2) < 0 };
-
-	sleep 1;
+	if(random 1 > 0.1) then { [_position,(PO3_side_3 select 0),([7] call PO3_fnc_getVehicleTypes) call PO3_fnc_getArrayRandom,format["EN_GroupForce_%1",round random 9]] call PO3_fnc_supportCreateHeloReinforcements; };
+	if(random 1 > 0.9) then { [_position,(PO3_side_3 select 0),([7] call PO3_fnc_getVehicleTypes) call PO3_fnc_getArrayRandom,format["EN_GroupForce_%1",round random 9]] call PO3_fnc_supportCreateHeloReinforcements; };
+	if(random 1 > 0.6) then { [_position,(PO3_side_3 select 0),([1] call PO3_fnc_getVehicleTypes) call PO3_fnc_getArrayRandom,format["EN_GroupForce_%1",round random 9]] call PO3_fnc_supportCreateHeloReinforcements; };
+	sleep 50;
 	[format["TASK%1",PO3_TASK__IDD],"succeeded"] call PO3_fnc_updateTask;
 
 // =========================================================================================================
