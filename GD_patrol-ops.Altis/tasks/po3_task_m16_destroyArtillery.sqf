@@ -20,7 +20,10 @@ PO3_TOTAL_UNITS = [];
 PO3_TOTAL_VEHICLES = [];
 
 _b = round(((playersNumber(PO3_side_1 select 0) max 1)*PO3_param_missionskill max 1) * abs(log(( (playersNumber(PO3_side_1 select 0) max 1)/2)/64)));
-
+if(_b > 15) then {
+	_b = 15;
+	_b = _b - (floor random 10);
+};
 // create caches
 _artilleryVehicles = [];
 _artilleryType = PO3_target_cache_types select ([west,east,resistance] find (PO3_side_3 select 0));
